@@ -2,8 +2,8 @@ require.config({
   baseUrl: "./js/",
   paths: {
     jquery: 'lib/jquery-1.8.2',
-    underscore: 'lib/underscore-1.4.2',
-    backbone: 'lib/backbone-0.9.2',
+    underscore: 'lib/underscore-1.4.4',
+    backbone: 'lib/backbone-1.0.0',
 //    'backbone.localStorage': 'lib/backbone.localStorage'
     'backbone.firebase': 'lib/backbone-firebase'
   },
@@ -38,7 +38,7 @@ require([
         firebase: new Firebase("https://izymes.firebaseio.com/test")
         } );
 
-        var Router = Backbone.Router.extend({
+    var Router = Backbone.Router.extend({
     routes: {
       "": "main"
     },
@@ -51,6 +51,8 @@ require([
           console.log('got tasks : ' + JSON.stringify(tasks));
           $("#container").html(view.render().el).show();
       });
+
+        $("#container").html(view.render().el).show();
 
 //      tasks.fetch({
 //        success: function(tasks){
