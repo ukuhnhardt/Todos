@@ -4,7 +4,8 @@ require.config({
     jquery: 'lib/jquery-1.8.2',
     underscore: 'lib/underscore-1.4.2',
     backbone: 'lib/backbone-0.9.2',
-    'backbone.localStorage': 'lib/backbone.localStorage'
+//    'backbone.localStorage': 'lib/backbone.localStorage'
+    'backbone.firebase': 'lib/backbone-firebase'
   },
   shim: {
     underscore: {
@@ -14,8 +15,8 @@ require.config({
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
-    'backbone.localStorage': {
-      deps: ['backbone'],
+    'backbone.firebase': {
+      deps: ['underscore','backbone'],
       exports: 'Backbone'
     }
   }
@@ -28,23 +29,38 @@ require([
     'views/MasterView'
   ], function($, Backbone, Todo, MasterView ) {
 
-  var Router = Backbone.Router.extend({
+    var TodoList = Backbone.Firebase.Collection.extend({
+
+        // Reference to this collection's model.
+        model: Todo.Model,
+
+        // Save all of the todo items in a Firebase.
+        firebase: new Firebase("https://izymes.firebaseio.com/test")
+        } );
+
+        var Router = Backbone.Router.extend({
     routes: {
       "": "main"
     },
 
     main: function(){
-      var tasks = new Todo.Collection();
+      var tasks = new TodoList();
+        tasks.testItsFirebase();
       var view = new MasterView({collection: tasks});
-      tasks.fetch({
-        success: function(tasks){
+      tasks.on('change', function(){
+          console.log('got tasks : ' + JSON.stringify(tasks));
           $("#container").html(view.render().el).show();
-        },
-        error: function(model, error) {
-          // TODO: handle errors nicer
-          alert(error);
-        }
       });
+
+//      tasks.fetch({
+//        success: function(tasks){
+//          $("#container").html(view.render().el).show();
+//        },
+//        error: function(model, error) {
+//          // TODO: handle errors nicer
+//          alert(error);
+//        }
+//      });
     }
   });
 

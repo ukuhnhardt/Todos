@@ -1,9 +1,10 @@
-define(['underscore', 'backbone.localStorage'], function(_, Backbone) {
+define(['underscore', 'backbone.firebase'], function(_, Backbone) {
   
-  var store = new Backbone.LocalStorage(window.store || "Todos"); // for testing purposes
+//  var store = new Backbone.LocalStorage(window.store || "Todos"); // for testing purposes
 
   var Todo = Backbone.Model.extend({
-    localStorage: store,
+    firebase: new Backbone.Firebase("https://izymes.firebaseio.com/test"),
+
     defaults: {
       title: "",
       timestamp: 0,
@@ -17,7 +18,8 @@ define(['underscore', 'backbone.localStorage'], function(_, Backbone) {
   });
  
   var Todos = Backbone.Collection.extend({
-    localStorage: store,
+//    localStorage: store,
+      firebase: new Backbone.Firebase("https://izymes.firebaseio.com/todos"),
     model: Todo,
     completed: function() {
       return this.where({completed: true});
@@ -29,7 +31,8 @@ define(['underscore', 'backbone.localStorage'], function(_, Backbone) {
       return model.get('timestamp');
     }
   });
- 
+
+
   return {
     Model: Todo,
     Collection: Todos
