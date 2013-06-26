@@ -44,7 +44,7 @@ require([
     },
 
     main: function(){
-      var tasks = new TodoList();
+      var tasks = new Todo.Collection();
         tasks.testItsFirebase();
       var view = new MasterView({collection: tasks});
       tasks.on('change', function(){

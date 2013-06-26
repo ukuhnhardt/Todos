@@ -3,7 +3,7 @@ define(['underscore', 'backbone.firebase'], function(_, Backbone) {
 //  var store = new Backbone.LocalStorage(window.store || "Todos"); // for testing purposes
 
   var Todo = Backbone.Model.extend({
-    firebase: new Backbone.Firebase("https://izymes.firebaseio.com/test"),
+//    firebase: new Backbone.Firebase("https://izymes.firebaseio.com/todos"),
 
     defaults: {
       title: "",
@@ -17,9 +17,9 @@ define(['underscore', 'backbone.firebase'], function(_, Backbone) {
     }
   });
  
-  var Todos = Backbone.Collection.extend({
+  var Todos = Backbone.Firebase.Collection.extend({
 //    localStorage: store,
-      firebase: new Backbone.Firebase("https://izymes.firebaseio.com/todos"),
+      firebase: new Firebase("https://izymes.firebaseio.com/todos"),
     model: Todo,
     completed: function() {
       return this.where({completed: true});
