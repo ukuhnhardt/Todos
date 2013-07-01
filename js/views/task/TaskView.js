@@ -6,6 +6,7 @@ define(['backbone', 'helpers/ViewHelper', 'views/task/EditTaskView', 'views/task
     initialize: function(){
       this.model.on('change:completed', this.render, this);
       this.model.on('destroy', this.remove, this);
+      this.model.on('remove', this.remove, this);
       this.$el.hide();
     },
     render: function(){

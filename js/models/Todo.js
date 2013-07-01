@@ -11,7 +11,15 @@ define(['underscore', 'backbone.firebase'], function (_, Backbone) {
             if (_.isEmpty(attrs.title)) {
                 return "Missing Title";
             }
+        } ,
+        save: function( completed ){
+            this.set(completed);
+        },
+        destroy: function(){
+            console.log('destroy ' + this);
+            this.collection.remove(this);
         }
+
     });
 
     var Todos = Backbone.Firebase.Collection.extend({

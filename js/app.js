@@ -40,7 +40,6 @@ require([
       var view = new MasterView({collection: tasks});
       tasks.on('change', function(){
           console.log('got tasks : ' + JSON.stringify(tasks));
-          $("#container").html(view.render().el).show();
       });
 
         $("#container").html(view.render().el).show();
