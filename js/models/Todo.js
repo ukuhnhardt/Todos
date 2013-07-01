@@ -23,7 +23,7 @@ define(['underscore', 'backbone.firebase'], function (_, Backbone) {
     });
 
     var Todos = Backbone.Firebase.Collection.extend({
-        firebase: new Firebase("https://izymes.firebaseio.com/todos"),
+        firebase: new Firebase("https://brisjs.firebaseio.com/Todos"),
         model: Todo,
         completed: function () {
             return this.where({completed: true});
